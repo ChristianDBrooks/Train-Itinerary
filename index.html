@@ -14,7 +14,7 @@
         <!-- JUMBOTRON -->
         <div class="row">
             <div class="col-12">
-                <div class="jumbotron jumbotron-fluid bg-secondary">
+                <div class="jumbotron jumbotron-fluid bg-primary">
                     <div class="container text-center">
                         <h1 class="display-4">Light Rail Schedule</h1>
                         <p class="lead">Time Itinerary</p>
@@ -24,7 +24,7 @@
         </div>
         <!-- TABLE -->
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
                 <table class="table table-striped table-primary p-2">
                     <thead>
                         <tr>
@@ -36,13 +36,6 @@
                         </tr>
                     </thead>
                     <tbody id="table-body">
-                        <tr>
-                            <th>Trenton Express</th>
-                            <td>Trenton</td>
-                            <td>15</td>
-                            <td>05:45</td>
-                            <td>20</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -53,7 +46,7 @@
             <div class="col-12">
                 <form action="">
                     <fieldset>
-                        <div class="form-group bg-info p-3">
+                        <div class="form-group bg-secondary p-3">
                             <label>Train Name</label>
                             <input type="text" class="form-control" id="name-input" placeholder="Name">
                             <label>Destination</label>
@@ -62,7 +55,10 @@
                             <input type="text" class="form-control" id="time-input" placeholder="hh:mm">
                             <label>Frequency</label>
                             <input type="text" class="form-control" id="freq-input" placeholder="Minutes">
-                            <button type="submit" class="btn btn-primary" id="input-submit">Submit</button>
+                            <div class="form-group mt-3">
+                                <button type="submit" class="btn btn-primary" id="input-submit">Submit</button>
+                                <button type="submit" class="btn btn-danger ml-2" id="input-clear">clear</button>
+                            </div>
                         </div>
                     </fieldset>
                 </form>

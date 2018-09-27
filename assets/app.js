@@ -27,9 +27,42 @@
           freq: $("#freq-input").val()
       }
 
-      database.ref().push(tData);
+      database.ref("/schedule").push(tData);
   })
 
-  database.ref().on("child_added", function(snap) {
-      console.log(snap.val());
+  $("#input-clear").on("click", function(event) {
+    event.preventDefault();
+    database.ref("/schedule").set({
+        empty: null
+    });
+    $("#table-body").empty();
+})
+
+  database.ref("/schedule").on("child_added", function(snap) {
+        // Create table elements.
+        var tableBody = $("#table-body");
+        var row = $("<tr>");
+        
+        // Grab from database.
+        var tFreq = snap.val().freq;
+        var tTime = snap.val().time;
+        
+        // Calculate
+        var tTimeConverted = moment(tTime, "HH:mm").subtract(1, "years");
+        var timeDiff = moment().diff(moment(tTimeConverted), "minutes");
+        var timeRemainder = timeDiff % tFreq;
+        var timeUntilTrain = tFreq - timeRemainder;
+        var timeNextArrival = moment().add(timeUntilTrain, "minutes").format("hh:mm");
+        
+        // Display in table.
+        var tDisplayName = $("<th>").text(snap.val().name);
+        var tDisplayDestination = $("<td>").text(snap.val().dest);
+        var tDisplayFrequency = $("<td>").text(tFreq);
+        var tDisplayNextArrival = $("<td>").text(timeNextArrival);
+        var tDisplayMinutesAway = $("<td>").text(timeUntilTrain);
+
+        // Append everything
+        row.append(tDisplayName, tDisplayDestination, tDisplayFrequency, tDisplayNextArrival, tDisplayMinutesAway);
+        tableBody.append(row);
   })
+
